@@ -1,0 +1,104 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+    
+
+{# <div class="example-wrapper"> #}
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success alert-dismissible">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+    {% endif %}
+
+    {% if app.session.flashBag.has('info') %}
+        <div class="alert alert-info alert-dismissible">
+            {% for msg in app.session.flashBag.get('info') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+    {% endif %}
+
+
+    {% if app.session.flashBag.has('danger') %}
+        <div class="alert alert-danger alert-dismissible">
+            {% for msg in app.session.flashBag.get('danger') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+    {% endif %}
+
+
+<h1>User Management Display</h1>
+<br>
+
+  {% if user %}
+
+    <table id="userTable" class="display dataTable table table-striped">
+          <colgroup span="2"></colgroup>
+        <thead><tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th colspan="2" scope="colgroup"><center>Action</center></th>
+            </tr>
+        </thead>
+        {% for user1 in user %}
+        <tr>
+            <td>{{ user1.firstname }}</td>
+            <td>{{ user1.lastname }}</td>
+            <td>{{ user1.email }}</td>
+
+            <td>    
+            {# href="/edit/{user1.id}"  #}
+                <form action="{{ path('editUser',{id: user1.id})}}" method="post">
+                    <button type="submit" class="btn btn-primary" value=""><i class="fas fa-edit"></i> Edit</button>
+                </form>
+            </td>
+            
+            <td>         
+                <form action="{{ path('deleteUser',{id: user1.id}) }} " method="post">
+                    <button type="submit" onclick="return confirm('Are u sure to delete this user?')" class="btn btn-danger" value=""><i class="fa fa-trash"></i> Delete</button>
+                </form>
+            </td>
+            
+        </tr>
+        {% endfor %}
+        
+    
+    </table><br><br><br>
+{% else %}
+    <p>No Articles</p>
+{% endif %}
+
+    
+</div>
+</section>
+</div>
+
+
+{% endblock %}
+
+
+{% block javascript %}
+{# <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> #}
+
+{% endblock %}

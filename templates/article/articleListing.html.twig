@@ -1,0 +1,131 @@
+
+{# {% extends 'base.html.twig' %} #}
+            {{ include('inc/navbar.html.twig') }}
+
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+<!-- Datatable CSS -->
+<link href='https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+
+{% endblock %}
+
+{% block body %}
+<style>
+    {# .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; } #}
+     .bg-image { background-image:url('uploads/bg1.jpg');  
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    }
+    .collapse-content .fa.fa-heart:hover {
+    color: #f44336 !important;
+    }
+    .collapse-content .fa.fa-share-alt:hover {
+        color: #0d47a1 !important;
+    }
+
+</style>
+
+<body class="bg-image">
+<div>
+    <h2 class="text-white"> User Article Page</h2>
+
+    
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success alert-dismissible">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+    {% endif %}
+
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-error alert-dismissible">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+    {% endif %}
+
+<div class="container-fluid">
+   <div class="card-deck" style="padding:25;display:flex;">
+
+{% if article %}
+    {% for article1 in article %}
+{# <!-- Card -->
+<div class="card promoting-card">
+<!-- Card content -->
+  <div class="flex-row"> #}
+
+    {# <div class="container">
+    
+        <div class="card mx-auto bg-light text-white" style="width: 60rem;">
+            <div class="card-header">
+                    <a class="float-left text-info"><strong>{{ article1.artName }}</strong></a>
+            </div>
+            <div class="card-body">
+                <img src="uploads/{{ article1.artImage }}" class="img img-fluid" height="80" width="100">
+                    <div class="clearfix"></div>
+                      |truncate(50, true)  
+                    <p>{{ article1.artDescription|striptags|slice(0,100) }}</p>
+
+                <p>                 
+                    <form action="{{ path('viewPage',{id: article1.id})}}">
+                        <input type="hidden"  value="PUT" />
+                        <input type="submit" class="btn btn-m btn-outline-primary float-right ml-2" value="Read More" />
+                    </form>
+                </p>          
+            </div>
+        </div>
+
+    </div>  #}
+   
+          <div class="col-md-3 d-flex">
+    <div class="card promoting-card">
+          <img class="card-img-top img-fluid"
+            src="uploads/{{ article1.artImage }}" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title font-weight-bold mb-2">{{ article1.artName }}</h4>
+            <p class="card-text">{{ article1.artDescription|striptags|slice(0, 100) }}</p>
+          </div>
+           <div class="card-footer">
+                <form action="{{ path('viewPage',{id: article1.id})}}">
+                    <input type="hidden" value="PUT" />
+                    <input type="submit" class="btn btn-m btn-outline-primary float-right ml-2" value="Read More" />
+                </form>
+            </div>
+        </div>
+    </div>  
+
+      {% endfor %}
+        
+{% else %}
+    <p>No Articles</p>
+{% endif %}
+</div>
+  </div>
+
+
+</div>
+<br><br><br><br>
+
+</body>
+{% endblock %} 
+
+
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<!-- jQuery Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Datatable JS -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+{% endblock %}

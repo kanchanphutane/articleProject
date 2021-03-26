@@ -1,0 +1,18 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+editUser:
+    path:     /usermanagement/edit/{id}
+    controller: App\Controller\FosController::update
+    
+    # prefix: App\Service\apiService::update
+
+registerPage:
+    path:     /user/register
+    controller: App\Controller\FosController::register
+
+deleteUser:
+    path:    /usermanagement/delete/{id}
+    controller: App\Controller\FosController::deleteUser
+    

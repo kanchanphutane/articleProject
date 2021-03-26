@@ -1,0 +1,148 @@
+
+{% extends 'base.html.twig' %}
+
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+<!-- Datatable CSS -->
+<link href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+
+{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto;
+                        max-width: 800px; 
+                        font: 18px/1.5 sans-serif;
+                        padding: 0px 10px;
+                        }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    
+</style>
+
+
+{# <div class="example-wrapper"> #}
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success alert-dismissible">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+    {% endif %}
+
+    {% if app.session.flashBag.has('danger') %}
+        <div class="alert alert-danger alert-dismissible">
+            {% for msg in app.session.flashBag.get('danger') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+    {% endif %}
+
+    {% if app.session.flashBag.has('info') %}
+        <div class="alert alert-info alert-dismissible">
+            {% for msg in app.session.flashBag.get('info') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+    {% endif %}
+
+
+    <h1>Article Page </h1>
+    <br>
+    <form action="article/addArticle">
+        <button type="submit" class="btn btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add Article
+        </button>
+    </form>
+    
+    <br>
+
+  {# <!-- SEARCH FORM -->
+    <form class="form-inline float-right">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+    </form> #}
+
+ 
+{% if article %}
+
+    <table id="userTable" class="display dataTable table table-striped">
+          <colgroup span="3"></colgroup>
+        <thead><tr>
+            <th>Article Name</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Created By</th>
+            <th>Updated By</th>
+            <th colspan="3" scope="colgroup"><center>Action</center></th>
+            </tr>
+        </thead>
+        {% for article1 in article %}
+        <tr>
+            <td>{{ article1.artName }}</td>
+            <td><img src="uploads/{{ article1.artImage }}" class="img img-fluid" style="height:60px;width:80px;"></td>
+            <td>{{ article1.artDescription|striptags|slice(0, 30) }} ...</td>
+            <td>{{ article1.createdBy }}</td>
+            <td>{{ article1.updatedBy }}</td>
+            
+            <td>
+                <form action="{{ path('viewPage',{id: article1.id})}}">
+                    {# <input type="hidden"  value="PUT" /> #}
+                    <button type="submit" class="btn btn-info" value=""><i class="fa fa-eye" aria-hidden="true"></i> View</button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ path('updatePage',{id: article1.id})}}" method="post">
+                    <button type="submit" class="btn btn-primary" value=""><i class="fas fa-edit"></i> Edit</button>
+                </form>
+            </td>
+            <td>         
+                <form action="{{ path('deletePage',{id: article1.id}) }} " method="post">
+                    <button type="submit" onclick="return confirm('Are u sure to delete this article?')" class="btn btn-danger" value=""><i class="fa fa-trash"></i> Delete</button>
+                </form>
+            </td>
+            
+        </tr>
+        {% endfor %}
+        
+    
+    </table><br><br><br>
+{% else %}
+    <p>No Articles</p>
+{% endif %}
+
+    
+</div>
+</section>
+</div>
+
+
+{% endblock %} 
+ 
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<!-- jQuery Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Datatable JS -->
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+{% endblock %}

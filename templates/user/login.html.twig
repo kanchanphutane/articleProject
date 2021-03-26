@@ -1,0 +1,112 @@
+
+{% block stylesheets %}
+<!-- Font Awesome -->
+<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- icheck bootstrap -->
+<link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1000px; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+     .bg-image { background-image:url('../uploads/bg4.jpg');  
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    }
+</style>
+
+            
+<body class="bg-image">
+<div class="example-wrapper">
+
+  <title>Article Site | Login Page</title>
+  <!-- Tell the browser to be responsive to screen width -->
+ 
+  {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success alert-dismissible">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+  {% endif %}
+
+  {% if app.session.flashBag.has('danger') %}
+        <div class="alert alert-danger alert-dismissible">
+            {% for msg in app.session.flashBag.get('danger') %}
+                {{ msg }}
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        </div>
+  {% endif %}
+
+<div class="mx-auto col-md-6 loginbox">
+  <div class="login-logo">
+    <a><strong><b>Article Site</b></strong></a>
+  </div>
+
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+              {# {{ form(form) }} #}
+                  <form action="{{ path('login') }}" method="POST">
+                      <label for="email">Email:</label>
+                      <input type="text" id="email" class="form-control" name="email" placeholder="Enter email" required/>
+                      <br>
+                      <label for="password">Password:</label>
+                      <input type="password" id="password" class="form-control" name="password" placeholder="Enter password" required />
+                      <br>
+                      <button type="submit" class="btn btn-md btn-primary">login</button>
+                        {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> #}
+                        <a href="{{ path('login')}}" class="btn btn-md btn-danger">Cancel</a>
+                  </form>
+        {# <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          
+          <!-- /.col -->
+        </div> #}
+      </form>
+
+      <!-- <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+      </p> -->
+      <p class="mb-0">
+        <a href="register" class="text-center">Register a new membership</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+</div>
+<!-- /.login-box -->
+</body>
+{% endblock %}
+
+{% block javascript %}
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+{% endblock %}

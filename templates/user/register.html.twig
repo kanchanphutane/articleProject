@@ -1,0 +1,84 @@
+ {# {% extends 'base.html.twig' %} #}
+ 
+{% block stylesheets %}  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1000px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .bg-image { background-image:url('../uploads/bg4.jpg');  
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    }
+</style>
+
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+{# {% form_theme form 'form_table_layout.html.twig' %} #}
+
+<body class="bg-image">     
+<div class="example-wrapper">   
+<title><strong><b>Article Site | Registration Page</b></strong></title>
+  <!-- Tell the browser to be responsive to screen width -->
+  
+<div class="mx-auto col-md-8">
+  <div class="register-logo">
+    <a><strong><b>Article Site</b></strong></a>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Register a new membership</p>
+
+            {{ form(form) }}
+            {# <a href="{{ path('login')}}" class="btn btn-md btn-danger float-right">Cancel</a> #}
+        
+        {# <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+              <label for="agreeTerms">
+               I agree to the <a href="#">terms</a>
+              </label>
+            </div>
+          </div>
+         
+          <!-- /.col -->
+        </div> #}
+      </form>
+
+      
+      <a href="login" class="text-center">I already have a membership</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+</div>
+
+</body>
+{% endblock %}
+
+{# 
+{% block javascript %}
+<!-- jQuery -->
+<script src="../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.min.js"></script>
+
+{% endblock %} #}
